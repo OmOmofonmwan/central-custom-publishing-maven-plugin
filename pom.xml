@@ -11,6 +11,7 @@
     <artifactId>central-custom-publishing-maven-plugin</artifactId>
     <version>0.0.2-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
+    <name>Central Custom Publishing Maven Plugin</name>
 
     <description>
         This maven plugin provides single steps of the central publishing process using the underlying api of the
