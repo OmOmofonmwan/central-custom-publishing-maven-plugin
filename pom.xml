@@ -40,6 +40,7 @@
         <maven-compat.version>3.8.1</maven-compat.version>
         <zip4j.version>2.11.5</zip4j.version>
         <maven-shared-utils.version>3.4.2</maven-shared-utils.version>
+        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -95,6 +96,11 @@
                 <artifactId>maven-shared-utils</artifactId>
                 <version>${maven-shared-utils.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -134,6 +140,10 @@
         <dependency>
             <groupId>net.lingala.zip4j</groupId>
             <artifactId>zip4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
         </dependency>
     </dependencies>
 

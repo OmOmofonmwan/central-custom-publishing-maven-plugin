@@ -78,6 +78,8 @@ To publish the created bundle to Maven Central, use the `publish` goal:
 | artifactFiles | List of artifact files to include in the bundle | Yes | - |
 | stagingDirectory | Directory where the staging files will be created | No | ${project.build.directory}/central-staging |
 | removeMetaDataFiles | Whether to remove metadata files from the bundle | No | true |
+| gpgSign | Whether to sign the artifacts with GPG | No | true |
+| passphrase | GPG passphrase for signing | No | - |
 
 ### publish Goal
 
@@ -91,6 +93,54 @@ To publish the created bundle to Maven Central, use the `publish` goal:
 | waitUntil | State to wait for (UPLOADED, PUBLISHED) | No | PUBLISHED |
 | waitMaxTime | Maximum time to wait in seconds | No | 300 |
 | waitPollingInterval | Polling interval in seconds | No | 5 |
+
+## GPG Signing
+
+The plugin automatically signs artifacts with GPG when creating a bundle. This is required for publishing to Maven Central. 
+
+### GPG Configuration
+
+To use GPG signing, you need to have GPG installed on your system and a GPG key pair configured. The plugin uses the `gpg` command-line tool to sign artifacts.
+
+You can configure GPG signing with the following parameters:
+
+```xml
+<configuration>
+    <gpgSign>true</gpgSign>
+    <passphrase>${gpg.passphrase}</passphrase>
+</configuration>
+```
+
+Alternatively, you can provide the passphrase via the command line:
+
+```bash
+mvn central-custom-publishing:create-bundle -Dgpg.passphrase=your_passphrase
+```
+
+If you don't provide a passphrase, the plugin will use the GPG agent if it's running, or prompt for the passphrase if needed.
+
+To disable GPG signing (not recommended for Maven Central publishing):
+
+```xml
+<configuration>
+    <gpgSign>false</gpgSign>
+</configuration>
+```
+
+### How GPG Signing Works
+
+The plugin performs the following GPG-related operations:
+
+1. Signs each artifact (including the POM file) with a detached signature in ASCII armor format
+2. Creates `.asc` signature files for each artifact
+3. Generates checksums (MD5, SHA-1, SHA-256) for both the artifacts and their signatures
+4. Includes all these files in the bundle that gets uploaded to Maven Central
+
+The GPG signing is performed using the following command:
+
+```
+gpg --detach-sign --armor [--passphrase your_passphrase] file_to_sign
+```
 
 ## Notes
 
