@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>central-custom-publishing-maven-plugin</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>maven-plugin</packaging>
 
     <description>
